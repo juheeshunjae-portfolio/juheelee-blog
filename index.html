@@ -5,39 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juhee Lee Blog</title>
     <style>
-        /* 폰트: 우아한 세리프체와 깔끔한 산세리프체 조합 */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;700&family=Pretendard:wght@300;600&display=swap');
+        /* 폰트 설정 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400;700&family=Pretendard:wght@100;400;600&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            overflow-x: hidden;
+            background-color: #ffffff; /* 기본 배경은 화이트 */
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* --- 1. Spline 배경 설정 (하단 링크 가리기) --- */
-        .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .background-container iframe {
-            position: absolute;
-            top: -50px; /* 위쪽 여백 조정 */
-            left: 0;
-            width: 100%;
-            height: calc(100% + 120px); /* 실제보다 길게 만들어 하단 로고를 화면 밖으로 밀어냄 */
-            border: none;
-        }
-
-        /* --- 2. 상단 네비게이션 (검색, 로고, 목차) --- */
+        /* --- 1. 상단 네비게이션 (검색, 메뉴) --- */
         header {
             position: fixed;
             top: 0;
@@ -45,141 +25,156 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 50px;
-            z-index: 100;
+            padding: 25px 40px;
+            z-index: 1000;
+            mix-blend-mode: difference; /* 배경색에 따라 글자색이 반전되어 항상 보입니다 */
+            color: white; 
         }
 
-        .header-left .search-icon {
-            font-size: 1.2rem;
+        .header-left .search-btn {
+            background: none;
+            border: none;
             cursor: pointer;
-            opacity: 0.6;
-            transition: 0.3s;
+            padding: 5px;
         }
-        .header-left .search-icon:hover { opacity: 1; }
 
-        .header-center .small-logo {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            font-style: italic;
+        /* 돋보기 아이콘: Juhee Lee 글자와 동일한 미니멀한 선 형태 */
+        .search-svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .header-right .menu-btn {
+            font-size: 1.8rem;
             text-decoration: none;
-            color: #333;
+            color: currentColor;
+            line-height: 1;
         }
 
-        .header-right .menu-icon {
+        /* --- 2. Hero 섹션 (3D 배경 + 타이틀) --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 90vh; /* 화면의 90%만 3D 영역으로 사용 */
+            overflow: hidden;
             display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: #333;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-        .header-right .menu-icon:hover { opacity: 1; }
-
-        /* --- 3. 중앙 메인 섹션 --- */
-        .main-hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            background-color: #f5f5f5;
         }
 
-        .main-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 8rem; /* 이미지처럼 아주 크게 */
-            font-weight: 700;
-            letter-spacing: -3px;
-            color: #2c2c2c;
-            margin-bottom: 20px;
-            user-select: none;
-        }
-
-        /* --- 4. 하단 카테고리 메뉴 --- */
-        .category-nav {
-            display: flex;
-            gap: 40px;
-            margin-top: 20px;
-        }
-
-        .category-nav a {
-            font-family: 'Pretendard', sans-serif;
-            text-decoration: none;
-            color: #555;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        /* 마우스 호버/드래그 느낌의 효과 */
-        .category-nav a:hover {
-            color: #997a5d; /* 고전적인 브라운 톤 */
-            background-color: rgba(153, 122, 93, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* 스크롤 안내 표시 */
-        .scroll-text {
+        .spline-container {
             position: absolute;
-            bottom: 40px;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            color: #999;
-            text-transform: uppercase;
+            top: -60px; /* 로고 가리기 위해 상단 이동 */
+            left: 0;
+            width: 100%;
+            height: calc(100% + 120px); /* 하단 링크 가리기 위해 길게 설정 */
+            z-index: 1;
+        }
+
+        .spline-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 10;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            color: #1a1a1a;
+            text-align: center;
+            pointer-events: none; /* 텍스트 뒤의 3D를 만질 수 있게 함 */
+        }
+
+        /* --- 3. 카테고리 네비게이션 (화이트 영역 시작점) --- */
+        .category-bar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 30px 0;
+            z-index: 900;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .category-bar a {
+            text-decoration: none;
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* 마우스 커서 가져다 대면 색상 변경 */
+        .category-bar a:hover {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* --- 4. 콘텐츠 영역 --- */
+        .content-section {
+            min-height: 100vh;
+            padding: 100px 10%;
+            background: #ffffff;
         }
 
         /* 모바일 대응 */
         @media (max-width: 768px) {
-            .main-title { font-size: 4rem; }
-            .category-nav { gap: 15px; flex-direction: column; }
+            .hero-title { font-size: 3rem; }
+            .category-bar { gap: 20px; }
             header { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="background-container">
-        <iframe src='https://my.spline.design/glassbuttonsinspiredbyreijopalmiste-Nlb6vC2i8D4mp1oQBWbNwDTM/' frameborder='0'></iframe>
-    </div>
-
     <header>
         <div class="header-left">
-            <span class="search-icon" title="검색">🔍</span>
-        </div>
-        <div class="header-center">
-            <a href="#" class="small-logo">juheelee blog</a>
+            <button class="search-btn">
+                <svg class="search-svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
         </div>
         <div class="header-right">
-            <a href="#index" class="menu-icon">
-                <span>INDEX</span>
-                <span style="font-size: 1.2rem;">≡</span>
-            </a>
+            <a href="#" class="menu-btn">≡</a>
         </div>
     </header>
 
-    <main class="main-hero">
-        <h1 class="main-title">Juhee Lee</h1>
-        
-        <nav class="category-nav">
-            <a href="#marketing">Marketing</a>
-            <a href="#art">Art & Culture</a>
-            <a href="#travel">Travel</a>
-        </nav>
+    <section class="hero-section">
+        <div class="spline-container">
+            <iframe src='https://my.spline.design/glassbuttonsinspiredbyreijopalmiste-Nlb6vC2i8D4mp1oQBWbNwDTM/' frameborder='0'></iframe>
+        </div>
+        <h1 class="hero-title">Juhee Lee Blog</h1>
+    </section>
 
-        <div class="scroll-text">Scroll</div>
-    </main>
+    <nav class="category-bar">
+        <a href="#marketing">마케팅</a>
+        <a href="#art">미술과 문화</a>
+        <a href="#travel">여행</a>
+    </nav>
 
-    <section id="marketing" style="height: 100vh; padding: 100px;">
-        <h2>Marketing Log</h2>
-        </section>
+    <section id="marketing" class="content-section">
+        <h2 style="font-family: 'Noto Serif KR', serif; font-size: 2.5rem; margin-bottom: 40px;">Marketing</h2>
+        <p>여기에 마케팅 관련 포트폴리오와 인사이트를 채워보세요.</p>
+    </section>
+
+    <section id="art" class="content-section" style="background-color: #fafafa;">
+        <h2 style="font-family: 'Noto Serif KR', serif; font-size: 2.5rem; margin-bottom: 40px;">Art & Culture</h2>
+        <p>서양 미술과 문화에 대한 주희님만의 깊이 있는 해석을 적는 공간입니다.</p>
+    </section>
 
 </body>
 </html>
