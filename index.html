@@ -3,58 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>juheelee blog | Marketer & Storyteller</title>
+    <title>juheelee blog | Marketer & Cultural Thinker</title>
     <style>
-        /* 깔끔하고 현대적인 폰트와 배경 설정 */
+        /* 세련된 폰트 조합 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@400;600&display=swap');
+
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.8;
+            color: #222;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #fcfcfc;
+            padding: 50px 20px;
+            background-color: #f9f9f7; /* 약간 미색의 종이 질감 느낌 */
         }
         header {
-            border-bottom: 2px solid #000;
-            padding-bottom: 20px;
-            margin-bottom: 50px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 40px;
+            margin-bottom: 60px;
         }
         h1 {
-            font-size: 2.5rem;
-            letter-spacing: -1px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 3rem;
             margin-bottom: 10px;
+            letter-spacing: -1px;
         }
         .tagline {
-            color: #666;
+            font-family: 'Noto Serif KR', serif;
+            font-style: italic;
+            color: #777;
             font-size: 1.1rem;
         }
-        .nav {
-            margin-top: 20px;
+        nav {
+            margin-top: 30px;
         }
-        .nav a {
-            margin-right: 20px;
+        nav a {
+            margin: 0 15px;
             text-decoration: none;
-            color: #000;
-            font-weight: bold;
-            border-bottom: 2px solid transparent;
+            color: #333;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
-        .nav a:hover {
-            border-bottom: 2px solid #000;
+        nav a:hover {
+            color: #997a5d; /* 고전적인 갈색톤 포인트 */
         }
-        .content-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5rem;
+            border-left: 4px solid #333;
+            padding-left: 15px;
             margin-bottom: 30px;
         }
-        .footer {
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .card {
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .card h3 {
+            margin-top: 0;
+            font-family: 'Noto Serif KR', serif;
+        }
+        .card .category {
+            font-size: 0.75rem;
+            color: #997a5d;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        footer {
             margin-top: 100px;
-            font-size: 0.9rem;
-            color: #999;
             text-align: center;
+            font-size: 0.8rem;
+            color: #bbb;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -62,22 +98,33 @@
 
 <header>
     <h1>juheelee blog</h1>
-    <div class="tagline">마케터의 시선으로 기록하는 일상과 인사이트</div>
-    <div class="nav">
-        <a href="#">Marketing</a>
-        <a href="#">Travel</a>
-        <a href="#">About Me</a>
-    </div>
+    <div class="tagline">기록하는 마케터, 그림을 읽고 문화를 여행합니다.</div>
+    <nav>
+        <a href="#marketing">Marketing</a>
+        <a href="#art">Art & Culture</a>
+        <a href="#travel">Travel</a>
+    </nav>
 </header>
 
-<div class="content-card">
-    <h2>Welcome! 🕊️</h2>
-    <p>네이버 블로그의 틀을 벗어나, 저만의 호흡으로 기록을 시작합니다. 이곳에서는 저의 마케팅 포트폴리오와 사적인 여행 기록이 공존합니다.</p>
+<div class="section-title">Latest Thoughts</div>
+
+<div class="grid">
+    <div class="card">
+        <span class="category">Art & Culture</span>
+        <h3>[해설] 마네의 '피리 부는 소년'이 혁명적이었던 이유</h3>
+        <p>단순한 평면성 속에 숨겨진 근대 마케팅의 시초를 읽어봅니다.</p>
+    </div>
+
+    <div class="card">
+        <span class="category">Marketing</span>
+        <h3>취향을 파는 브랜드, 요즘 팝업스토어의 공식</h3>
+        <p>성수동 현장에서 느낀 공간 브랜딩의 핵심 포인트를 정리했습니다.</p>
+    </div>
 </div>
 
-<div class="footer">
-    © 2024 juheelee. Powered by GitHub Pages.
-</div>
+<footer>
+    © 2024 JUHEE LEE. ALL RIGHTS RESERVED.
+</footer>
 
 </body>
 </html>
