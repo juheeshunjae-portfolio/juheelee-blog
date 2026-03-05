@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Juhee Lee Blog</title>
     <style>
         /* 폰트 설정 */
@@ -16,6 +16,7 @@
             color: #1a1a1a;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- 1. 상단 네비게이션 --- */
@@ -26,131 +27,128 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px;
-            z-index: 2000;
+            padding: 20px 30px;
+            z-index: 5000; /* 최상단 고정 */
             mix-blend-mode: difference;
             color: white; 
         }
 
-        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
         .search-btn { background: none; border: none; cursor: pointer; color: inherit; display: flex; align-items: center; }
         .search-svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
         #search-input-container {
-            display: none;
-            background: none; border: none;
-            border-bottom: 1px solid white; margin-left: 10px;
+            display: none; background: none; border-bottom: 1px solid white; margin-left: 10px;
         }
         #search-input-container input {
-            background: none; border: none; color: white; padding: 5px; outline: none; font-size: 0.9rem;
+            background: none; border: none; color: white; padding: 5px; outline: none; font-size: 0.9rem; width: 120px;
         }
 
         .header-right { position: relative; }
-        .menu-btn { font-size: 1.8rem; cursor: pointer; }
+        .menu-btn { font-size: 1.8rem; cursor: pointer; line-height: 1; }
 
         .menu-dropdown {
             display: none;
             position: absolute; top: 40px; right: 0;
-            background-color: #ffffff; min-width: 220px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            padding: 20px 0; z-index: 2001; mix-blend-mode: normal;
+            background-color: #ffffff; min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 15px 0; z-index: 5001; mix-blend-mode: normal;
             border: 1px solid #f0f0f0;
         }
         .header-right:hover .menu-dropdown { display: block; }
         .menu-dropdown a {
-            display: block; padding: 12px 30px; text-decoration: none;
-            color: #1a1a1a; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; transition: 0.3s;
+            display: block; padding: 12px 25px; text-decoration: none;
+            color: #1a1a1a; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
         }
-        .menu-dropdown a:hover { background-color: #f9f9f9; color: #997a5d; padding-left: 35px; }
 
         /* --- 2. Hero 섹션 --- */
         #main-hero {
-            position: relative; width: 100%; height: 90vh; overflow: hidden;
+            position: relative; width: 100%; height: 85vh; overflow: hidden;
             display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;
         }
-        .spline-container { position: absolute; top: -60px; left: 0; width: 100%; height: calc(100% + 120px); z-index: 1; }
+        .spline-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .spline-container iframe { width: 100%; height: 100%; border: none; }
         .hero-title {
             position: relative; z-index: 10; font-family: 'Noto Serif KR', serif;
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; letter-spacing: -2px;
+            font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 700; letter-spacing: -2px;
             color: #1a1a1a; text-align: center; pointer-events: none;
         }
 
         /* --- 3. 카테고리 네비게이션 --- */
         .category-bar {
-            position: sticky; top: 0; width: 100%; background: rgba(255,255,255,0.95);
-            display: flex; justify-content: center; gap: 60px; padding: 25px 0;
-            z-index: 900; border-bottom: 1px solid #f0f0f0; backdrop-filter: blur(5px);
+            position: sticky; top: 0; width: 100%; background: rgba(255,255,255,0.98);
+            display: flex; justify-content: center; gap: 40px; padding: 20px 0;
+            z-index: 1000; border-bottom: 1px solid #f0f0f0;
         }
-        .category-bar a { text-decoration: none; color: #888; font-size: 0.9rem; letter-spacing: 2px; transition: 0.3s; }
+        .category-bar a { text-decoration: none; color: #888; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; }
         .category-bar a:hover { color: #1a1a1a; font-weight: 600; }
 
         /* --- 4. 콘텐츠 영역 --- */
-        .content-section { padding: 120px 10%; background: #ffffff; }
-        .section-header { margin-bottom: 60px; border-left: 5px solid #1a1a1a; padding-left: 25px; }
-        .section-header h2 { font-family: 'Noto Serif KR', serif; font-size: 2.8rem; margin-bottom: 8px; letter-spacing: -1px; }
-        .section-header p { color: #888; font-size: 1rem; font-weight: 300; }
+        .content-section { padding: 80px 8%; background: #ffffff; }
+        .section-header { margin-bottom: 40px; border-left: 4px solid #1a1a1a; padding-left: 20px; }
+        .section-header h2 { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; margin-bottom: 5px; }
+        .section-header p { color: #888; font-size: 0.9rem; }
 
         .post-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 40px; margin-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-bottom: 30px;
         }
 
         .post-card {
-            background: #fff; border: 1px solid #eee; padding: 50px;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer;
-            display: flex; flex-direction: column; justify-content: space-between;
+            background: #fff; border: 1px solid #eee; padding: 35px;
+            transition: all 0.4s ease; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: space-between; min-height: 220px;
         }
-        .post-card:hover { 
-            transform: translateY(-10px); 
-            border-color: #1a1a1a; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.08); 
-        }
-        .post-card h3 { font-family: 'Noto Serif KR', serif; font-size: 1.6rem; margin-bottom: 20px; line-height: 1.4; }
-        .post-card p { font-size: 1rem; color: #555; line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-        .date-label { font-size: 0.75rem; color: #bbb; margin-top: 25px; letter-spacing: 1px; text-transform: uppercase; }
+        .post-card:hover { transform: translateY(-5px); border-color: #1a1a1a; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .post-card h3 { font-family: 'Noto Serif KR', serif; font-size: 1.4rem; margin-bottom: 15px; }
+        .post-card p { font-size: 0.9rem; color: #666; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .date-label { font-size: 0.7rem; color: #ccc; margin-top: 20px; letter-spacing: 1px; }
 
         .view-all-btn {
-            display: inline-block; padding: 14px 40px; border: 1px solid #1a1a1a;
-            text-decoration: none; color: #1a1a1a; font-size: 0.85rem; font-weight: 600;
-            letter-spacing: 3px; transition: 0.4s; cursor: pointer; margin-top: 30px;
+            display: inline-block; padding: 12px 30px; border: 1px solid #1a1a1a;
+            text-decoration: none; color: #1a1a1a; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 2px; transition: 0.3s; cursor: pointer;
         }
-        .view-all-btn:hover { background: #1a1a1a; color: #fff; transform: scale(1.05); }
 
-        /* --- 5. 세부 사이트(모달형 사이트) --- */
+        /* --- 5. 세부 사이트 (중요: 모바일 대응 고도화) --- */
         #sub-site-view {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 3000; padding: 100px 10%; overflow-y: auto;
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffffff; z-index: 4000; /* 푸터와 헤더 사이 */
+            padding: 80px 8% 40px; overflow-y: scroll; /* 모달 내부 스크롤 강제 */
+            -webkit-overflow-scrolling: touch;
         }
-        .back-btn { margin-bottom: 50px; cursor: pointer; font-weight: 600; letter-spacing: 2px; color: #1a1a1a; border-bottom: 1px solid #1a1a1a; padding-bottom: 5px; }
+        .back-btn { 
+            display: inline-block; margin-bottom: 30px; cursor: pointer; 
+            font-weight: 600; font-size: 0.8rem; color: #1a1a1a;
+            border-bottom: 1px solid #1a1a1a; padding-bottom: 3px;
+        }
 
         /* --- 6. 모달 --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 4000; padding: 120px 10%; overflow-y: auto;
+            background: white; z-index: 6000; padding: 100px 8%; overflow-y: auto;
         }
-        .modal-content { max-width: 900px; margin: 0 auto; }
-        .modal-close { position: fixed; top: 50px; right: 50px; font-size: 2.5rem; cursor: pointer; font-weight: 100; }
+        .modal-content { max-width: 800px; margin: 0 auto; }
+        .modal-close { position: fixed; top: 30px; right: 30px; font-size: 2rem; cursor: pointer; z-index: 6001; }
 
         /* --- 7. 푸터 --- */
         footer {
-            padding: 100px 10%; border-top: 1px solid #f5f5f5;
+            padding: 60px 8%; border-top: 1px solid #f5f5f5;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .footer-left h4 { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 700; }
-        .footer-right { display: flex; gap: 30px; }
-        .footer-right a {
-            text-decoration: none; color: #aaa; font-size: 0.85rem; letter-spacing: 2px; transition: 0.3s;
-        }
-        .footer-right a:hover { color: #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .footer-left h4 { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; }
+        .footer-right { display: flex; gap: 20px; }
+        .footer-right a { text-decoration: none; color: #aaa; font-size: 0.8rem; letter-spacing: 1px; }
 
         @media (max-width: 768px) {
-            header { padding: 20px; }
-            .hero-title { font-size: 2.5rem; }
-            .category-bar { gap: 15px; font-size: 0.7rem; }
+            header { padding: 15px 20px; }
+            .content-section { padding: 60px 20px; }
+            .hero-title { font-size: 2.2rem; }
+            .category-bar { gap: 20px; }
             .post-grid { grid-template-columns: 1fr; }
-            footer { flex-direction: column; gap: 40px; text-align: center; }
+            footer { flex-direction: column; gap: 30px; text-align: center; }
+            #sub-site-view { padding-top: 70px; }
         }
     </style>
 </head>
@@ -158,15 +156,8 @@
 
     <header>
         <div class="header-left">
-            <button class="search-btn" onclick="toggleSearch()">
-                <svg class="search-svg" viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
-            <div id="search-input-container">
-                <input type="text" id="main-search" placeholder="Type and press Enter..." onkeyup="handleSearch(event)">
-            </div>
+            <button class="search-btn" onclick="toggleSearch()"><svg class="search-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            <div id="search-input-container"><input type="text" id="main-search" placeholder="Search..." onkeyup="handleSearch(event)"></div>
         </div>
         <div class="header-right">
             <div class="menu-btn">≡</div>
@@ -179,10 +170,8 @@
     </header>
 
     <div id="home-view">
-        <section id="main-hero" class="hero-section">
-            <div class="spline-container">
-                <iframe src='https://my.spline.design/glassbuttonsinspiredbyreijopalmiste-Nlb6vC2i8D4mp1oQBWbNwDTM/' frameborder='0'></iframe>
-            </div>
+        <section id="main-hero">
+            <div class="spline-container"><iframe src='https://my.spline.design/glassbuttonsinspiredbyreijopalmiste-Nlb6vC2i8D4mp1oQBWbNwDTM/' frameborder='0'></iframe></div>
             <h1 class="hero-title">Juhee Lee Blog</h1>
         </section>
 
@@ -193,48 +182,28 @@
         </nav>
 
         <section id="marketing" class="content-section">
-            <div class="section-header">
-                <h2>Marketing</h2>
-                <p>브랜드의 가치를 발견하고 전략으로 연결하는 기록</p>
-            </div>
+            <div class="section-header"><h2>Marketing</h2><p>브랜드 전략과 시장의 흐름을 읽는 시선</p></div>
             <div id="marketing-posts" class="post-grid"></div>
-            <div style="text-align: center;">
-                <div class="view-all-btn" onclick="openSubSite('marketing')">VIEW ALL PROJECTS</div>
-            </div>
+            <div style="text-align: center;"><div class="view-all-btn" onclick="openSubSite('marketing')">VIEW ALL PROJECTS</div></div>
         </section>
 
         <section id="art" class="content-section" style="background-color: #fafafa;">
-            <div class="section-header">
-                <h2>Art & Culture</h2>
-                <p>시대를 아우르는 예술적 영감과 문화적 통찰</p>
-            </div>
+            <div class="section-header"><h2>Art & Culture</h2><p>예술적 영감과 문화적 통찰의 기록</p></div>
             <div id="art-posts" class="post-grid"></div>
-            <div style="text-align: center;">
-                <div class="view-all-btn" onclick="openSubSite('art')">VIEW ALL STORIES</div>
-            </div>
+            <div style="text-align: center;"><div class="view-all-btn" onclick="openSubSite('art')">VIEW ALL STORIES</div></div>
         </section>
 
         <section id="travel" class="content-section">
-            <div class="section-header">
-                <h2>Travel</h2>
-                <p>낯선 공간에서 마주한 새로운 시선과 여정</p>
-            </div>
+            <div class="section-header"><h2>Travel</h2><p>낯선 곳에서 마주한 새로운 여정</p></div>
             <div id="travel-posts" class="post-grid"></div>
-            <div style="text-align: center;">
-                <div class="view-all-btn" onclick="openSubSite('travel')">VIEW ALL JOURNEYS</div>
-            </div>
+            <div style="text-align: center;"><div class="view-all-btn" onclick="openSubSite('travel')">VIEW ALL JOURNEYS</div></div>
         </section>
     </div>
 
     <div id="sub-site-view">
-        <div class="back-btn" onclick="closeSubSite()">← RETURN TO HOME</div>
-        <div id="sub-site-content">
-            <div class="section-header">
-                <h2 id="sub-title">Category Name</h2>
-                <p id="sub-desc">Explore all the records in this category</p>
-            </div>
-            <div id="sub-post-grid" class="post-grid"></div>
-        </div>
+        <div class="back-btn" onclick="closeSubSite()">← BACK TO HOME</div>
+        <div class="section-header"><h2 id="sub-title">Category</h2><p id="sub-desc">전체 리스트를 확인하세요.</p></div>
+        <div id="sub-post-grid" class="post-grid"></div>
     </div>
 
     <div id="read-modal" class="modal">
@@ -244,17 +213,11 @@
 
     <div id="search-modal" class="modal">
         <span class="modal-close" onclick="closeModal('search-modal')">✕</span>
-        <div class="modal-content">
-            <h2 style="font-family: 'Noto Serif KR', serif; font-size: 2.5rem; margin-bottom: 40px;">Search Results</h2>
-            <div id="search-results-grid" class="post-grid"></div>
-        </div>
+        <div class="modal-content"><h2>Search Results</h2><div id="search-results-grid" class="post-grid" style="margin-top:30px;"></div></div>
     </div>
 
     <footer>
-        <div class="footer-left">
-            <h4>Juhee Lee Blog</h4>
-            <p style="color:#ccc; font-size: 0.75rem; margin-top: 5px;">© 2026. Curator & Marketer Juhee Lee.</p>
-        </div>
+        <div class="footer-left"><h4>Juhee Lee Blog</h4><p style="color:#bbb; font-size:0.7rem; margin-top:5px;">© 2026. Juhee Lee. All Rights Reserved.</p></div>
         <div class="footer-right">
             <a href="mailto:juheeshunjae@sookmyung.ac.kr">E-MAIL</a>
             <a href="https://www.linkedin.com/in/juhee-lee-33676335b/" target="_blank">LINKEDIN</a>
@@ -262,122 +225,94 @@
     </footer>
 
     <script>
-        /* 주희 님! 아래가 전 세계 모든 사람이 볼 수 있는 공개 데이터입니다.
-           글을 추가하거나 수정하고 싶으시면 이 리스트의 내용만 바꾸시면 됩니다.
-        */
+        // 모든 기기에서 동일하게 보일 수 있도록 데이터를 하드코딩 (LocalStorage 무시)
         const posts = [
-            // Marketing
-            {id: 15, category: 'marketing', title: '2026 마케팅 트렌드: 초개인화 시대의 서막', content: '데이터가 넘쳐나는 시대, 이제 소비자들은 자신만을 위한 특별한 메시지를 원합니다. AI 기술이 마케팅 실무에 미치는 영향과 브랜드가 나아가야 할 방향을 분석했습니다.', date: '2026-03-05'},
-            {id: 14, category: 'marketing', title: '브랜드 팬덤을 만드는 커뮤니티 전략', content: '단순한 구매자를 넘어 브랜드의 지지자가 되는 팬덤. 성공적인 커뮤니티 기반 마케팅 사례를 통해 지속 가능한 브랜드 성장 동력을 살펴봅니다.', date: '2026-03-01'},
-            {id: 13, category: 'marketing', title: '공간 마케팅: 오프라인의 가치 재발견', content: '온라인이 줄 수 없는 오감의 경험. 성수동과 한남동의 팝업스토어 열풍을 통해 본 현대적인 공간 브랜딩 기법.', date: '2026-02-25'},
-            {id: 12, category: 'marketing', title: '디지털 네이티브를 사로잡는 숏폼 문법', content: '15초 안에 승부를 보는 마케팅 비결. 틱톡과 릴스 등 숏폼 콘텐츠가 마케팅 KPI에 기여하는 실질적인 방식.', date: '2026-02-20'},
-            {id: 11, category: 'marketing', title: '지속 가능한 브랜드의 진정성(Authenticity)', content: 'MZ세대가 열광하는 가치 소비. 친환경을 넘어 기업의 진정성이 매출과 브랜드 이미지에 미치는 심리적 요인.', date: '2026-02-15'},
+            // Marketing (5개)
+            {id: 15, category: 'marketing', title: '2026 마케팅 트렌드 분석', content: '초개인화 기술이 가져올 브랜드 커뮤니케이션의 변화를 예측해봅니다.', date: '2026-03-05'},
+            {id: 14, category: 'marketing', title: '팬덤 마케팅의 실전 전략', content: '강력한 브랜드 충성도를 만드는 커뮤니티 빌딩 노하우.', date: '2026-03-01'},
+            {id: 13, category: 'marketing', title: '오프라인 공간의 브랜딩', content: '성수동 팝업스토어 사례로 본 경험 설계의 중요성.', date: '2026-02-25'},
+            {id: 12, category: 'marketing', title: '숏폼 콘텐츠 활용 가이드', content: '짧은 영상으로 타겟의 시선을 사로잡는 마케팅 문법.', date: '2026-02-20'},
+            {id: 11, category: 'marketing', title: '지속 가능한 브랜드 철학', content: 'MZ세대가 열광하는 가치 소비와 기업의 진정성.', date: '2026-02-15'},
 
-            // Art & Culture
-            {id: 10, category: 'art', title: '모네에서 빛을 배우다: 인상주의의 철학', content: '찰나의 순간을 기록한 클로드 모네. 그가 사용한 색채와 빛의 조화가 현대 시각 디자인에 미치는 미학적 영향을 탐구합니다.', date: '2026-03-04'},
-            {id: 9, category: 'art', title: '현대 미술과 미니멀리즘의 조우', content: '덜어냄으로써 채우는 미학. 미니멀리즘 예술이 현대 라이프스타일과 공간 인테리어에 녹아든 방식에 대하여.', date: '2026-02-28'},
-            {id: 8, category: 'art', title: '바우하우스 디자인의 유산', content: '형태는 기능을 따른다. 100년이 지난 지금도 세련됨을 잃지 않는 바우하우스의 디자인 원칙과 브랜드 철학.', date: '2026-02-22'},
-            {id: 7, category: 'art', title: '서울의 갤러리 가이드: 숨겨진 예술 공간', content: '유명 미술관을 벗어나 도심 속 조용히 예술을 만끽할 수 있는 소규모 갤러리 투어 기록.', date: '2026-02-10'},
-            {id: 6, category: 'art', title: '고전 음악의 현대적 변주', content: '클래식이 올드하다는 편견을 깨는 아티스트들. 고전의 가치를 현대적인 감각으로 재해석한 공연 리뷰.', date: '2026-02-05'},
+            // Art & Culture (5개)
+            {id: 10, category: 'art', title: '모네: 빛의 미학', content: '인상주의 거장이 남긴 색채의 조화를 현대 디자인 관점에서 해석합니다.', date: '2026-03-04'},
+            {id: 9, category: 'art', title: '미니멀리즘과 현대 예술', content: '단순함 속에 숨겨진 강렬한 메시지를 탐구합니다.', date: '2026-02-28'},
+            {id: 8, category: 'art', title: '바우하우스의 유산', content: '실용성과 예술성이 결합된 디자인 혁명의 시작점.', date: '2026-02-22'},
+            {id: 7, category: 'art', title: '도심 속 숨겨진 갤러리', content: '나만 알고 싶은 서울의 작은 예술 공간들을 소개합니다.', date: '2026-02-10'},
+            {id: 6, category: 'art', title: '고전 음악의 현대적 재해석', content: '클래식의 가치를 새롭게 변주하는 아티스트 리뷰.', date: '2026-02-05'},
 
-            // Travel
-            {id: 5, category: 'travel', title: '베를린: 거친 매력 속에 숨겨진 창의성', content: '역사와 현대 예술이 공존하는 도시 베를린. 그곳의 길거리 그래피티부터 디자인 스튜디오까지, 영감을 주는 장소들.', date: '2026-03-02'},
-            {id: 4, category: 'travel', title: '교토의 계절을 걷는 법', content: '화려함보다 정갈함이 어울리는 교토. 오래된 사찰과 정원에서 발견한 정적인 아름다움에 대한 기록.', date: '2026-02-27'},
-            {id: 3, category: 'travel', title: '포르투갈의 파란색: 아줄레주 투어', content: '타일 위에 그려진 역사. 포르투와 리스본의 골목을 푸르게 물들인 아줄레주 예술을 따라가는 여정.', date: '2026-02-18'},
-            {id: 2, category: 'travel', title: '여행자의 가방: 미니멀 투어리즘', content: '짐을 덜어낼수록 채워지는 여행의 경험. 가볍게 떠나는 여행을 위한 짐 싸기 노하우와 마인드셋.', date: '2026-02-12'},
-            {id: 1, category: 'travel', title: '아이슬란드의 대자연이 주는 위로', content: '지구가 아닌 듯한 풍경 속에서 보낸 일주일. 압도적인 자연 앞에서 마주한 인간의 본질과 사색.', date: '2026-01-30'}
+            // Travel (5개)
+            {id: 5, category: 'travel', title: '베를린의 창의적인 골목', content: '역사와 예술이 공존하는 베를린의 독특한 분위기.', date: '2026-03-02'},
+            {id: 4, category: 'travel', title: '교토의 정적인 아름다움', content: '오래된 정원에서 발견한 마음의 평온과 사색의 시간.', date: '2026-02-27'},
+            {id: 3, category: 'travel', title: '포르투갈 아줄레주 투어', content: '파란 타일 벽화가 아름다운 리스본의 골목길 여행기.', date: '2026-02-18'},
+            {id: 2, category: 'travel', title: '가벼운 여행을 위한 짐 싸기', content: '미니멀 투어리즘을 실천하는 마케터의 체크리스트.', date: '2026-02-12'},
+            {id: 1, category: 'travel', title: '아이슬란드의 압도적인 자연', content: '지구가 아닌 듯한 풍경 속에서 얻은 새로운 영감.', date: '2026-01-30'}
         ];
 
-        // 렌더링 함수 (메인 페이지는 상위 2개만)
         function renderMainPosts() {
             const categories = ['marketing', 'art', 'travel'];
             categories.forEach(cat => {
                 const container = document.getElementById(`${cat}-posts`);
-                const filtered = posts.filter(p => p.category === cat)
-                                      .sort((a,b) => b.id - a.id); // 최신순 정렬
-                const latestTwo = filtered.slice(0, 2);
-                container.innerHTML = latestTwo.map(post => createPostCard(post)).join('');
+                const filtered = posts.filter(p => p.category === cat).sort((a,b) => b.id - a.id);
+                container.innerHTML = filtered.slice(0, 2).map(post => createPostCard(post)).join('');
             });
         }
 
         function createPostCard(post) {
-            return `
-                <div class="post-card" onclick="readPost(${post.id})">
-                    <div>
-                        <h3>${post.title}</h3>
-                        <p>${post.content}</p>
-                    </div>
-                    <div class="date-label">${post.date}</div>
-                </div>
-            `;
+            return `<div class="post-card" onclick="readPost(${post.id})"><div><h3>${post.title}</h3><p>${post.content}</p></div><div class="date-label">${post.date}</div></div>`;
         }
 
-        // 전체보기 세부 사이트 열기
         function openSubSite(cat) {
-            document.getElementById('home-view').style.display = 'none';
-            document.getElementById('sub-site-view').style.display = 'block';
+            const subView = document.getElementById('sub-site-view');
+            const homeView = document.getElementById('home-view');
+            
+            homeView.style.display = 'none';
+            subView.style.display = 'block';
             window.scrollTo(0,0);
 
-            const displayTitles = { marketing: 'Marketing Archive', art: 'Art & Culture Archive', travel: 'Travel Journal' };
-            document.getElementById('sub-title').innerText = displayTitles[cat];
+            const titles = { marketing: 'Marketing Archive', art: 'Art & Culture Archive', travel: 'Travel Journal' };
+            document.getElementById('sub-title').innerText = titles[cat];
             
             const filtered = posts.filter(p => p.category === cat).sort((a,b) => b.id - a.id);
+            // 여기서 전체 글(5개)이 렌더링됩니다.
             document.getElementById('sub-post-grid').innerHTML = filtered.map(post => createPostCard(post)).join('');
         }
 
         function closeSubSite() {
             document.getElementById('home-view').style.display = 'block';
             document.getElementById('sub-site-view').style.display = 'none';
+            window.scrollTo(0,0);
         }
 
-        // 검색 기능
         function toggleSearch() {
-            const container = document.getElementById('search-input-container');
-            const isVisible = container.style.display === 'block';
-            container.style.display = isVisible ? 'none' : 'block';
-            if(!isVisible) document.getElementById('main-search').focus();
+            const c = document.getElementById('search-input-container');
+            c.style.display = c.style.display === 'block' ? 'none' : 'block';
+            if(c.style.display === 'block') document.getElementById('main-search').focus();
         }
 
         function handleSearch(e) {
-            const keyword = e.target.value.trim();
-            if (e.key === 'Enter' && keyword) {
-                const results = posts.filter(p => p.title.toLowerCase().includes(keyword.toLowerCase()) || p.content.includes(keyword));
-                const resultsGrid = document.getElementById('search-results-grid');
-                
-                if(results.length > 0) {
-                    resultsGrid.innerHTML = results.map(post => createPostCard(post)).join('');
-                } else {
-                    resultsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 100px; color: #bbb;">No results found for "${keyword}"</p>`;
-                }
+            if (e.key === 'Enter') {
+                const k = e.target.value.toLowerCase();
+                const r = posts.filter(p => p.title.toLowerCase().includes(k) || p.content.includes(k));
+                document.getElementById('search-results-grid').innerHTML = r.length ? r.map(p => createPostCard(p)).join('') : '<p>검색 결과가 없습니다.</p>';
                 document.getElementById('search-modal').style.display = 'block';
             }
         }
 
-        // 포스트 본문 읽기
         function readPost(id) {
-            const post = posts.find(p => p.id === id);
-            const readContent = document.getElementById('read-content');
-            readContent.innerHTML = `
-                <p style="color: #997a5d; font-weight: 600; letter-spacing: 3px; margin-bottom: 20px;">${post.category.toUpperCase()}</p>
-                <h1 style="font-family: 'Noto Serif KR', serif; font-size: 3.5rem; margin-bottom: 40px; line-height: 1.2; letter-spacing: -2px;">${post.title}</h1>
-                <p style="color: #bbb; margin-bottom: 60px; font-size: 0.9rem; letter-spacing: 1px;">PUBLISHED ON ${post.date}</p>
-                <div style="font-size: 1.2rem; line-height: 2.2; color: #333; white-space: pre-wrap; font-weight: 300;">${post.content}</div>
-                <div style="margin-top: 100px; padding-top: 40px; border-top: 1px solid #eee;">
-                    <span style="cursor:pointer; font-weight: 600; text-decoration: underline;" onclick="closeModal('read-modal')">CLOSE STORY</span>
-                </div>
+            const p = posts.find(x => x.id === id);
+            document.getElementById('read-content').innerHTML = `
+                <p style="color:#997a5d; font-weight:600; letter-spacing:2px; margin-bottom:15px;">${p.category.toUpperCase()}</p>
+                <h1 style="font-family:'Noto Serif KR', serif; font-size:2.5rem; margin-bottom:30px; line-height:1.2;">${p.title}</h1>
+                <div style="font-size:1.1rem; line-height:2; color:#333; white-space:pre-wrap;">${p.content}</div>
+                <div style="margin-top:60px; padding-top:20px; border-top:1px solid #eee; cursor:pointer; font-weight:600;" onclick="closeModal('read-modal')">BACK</div>
             `;
             document.getElementById('read-modal').style.display = 'block';
         }
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = function(e) { if(e.target.className==='modal') e.target.style.display='none'; }
 
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') event.target.style.display = "none";
-        }
-
-        // 초기 렌더링 실행
         renderMainPosts();
     </script>
 </body>
