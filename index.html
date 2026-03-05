@@ -66,8 +66,22 @@
             position: relative; width: 100%; height: 85vh; overflow: hidden;
             display: flex; justify-content: center; align-items: center; background-color: #f5f5f5;
         }
-        .spline-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .spline-container iframe { width: 100%; height: 100%; border: none; }
+        /* [수정 부분] 워터마크를 가리기 위해 overflow: hidden을 추가하고 iframe 높이를 조정합니다. */
+        .spline-container { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 1; 
+            overflow: hidden; 
+        }
+        .spline-container iframe { 
+            width: 100%; 
+            height: calc(100% + 50px); /* 실제 컨테이너보다 50px 더 크게 설정하여 하단 로고를 밀어냅니다. */
+            border: none; 
+        }
+        
         .hero-title {
             position: relative; z-index: 10; font-family: 'Noto Serif KR', serif;
             font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 700; letter-spacing: -2px;
@@ -225,23 +239,17 @@
     </footer>
 
     <script>
-        // 모든 기기에서 동일하게 보일 수 있도록 데이터를 하드코딩 (LocalStorage 무시)
         const posts = [
-            // Marketing (5개)
             {id: 15, category: 'marketing', title: '2026 마케팅 트렌드 분석', content: '초개인화 기술이 가져올 브랜드 커뮤니케이션의 변화를 예측해봅니다.', date: '2026-03-05'},
             {id: 14, category: 'marketing', title: '팬덤 마케팅의 실전 전략', content: '강력한 브랜드 충성도를 만드는 커뮤니티 빌딩 노하우.', date: '2026-03-01'},
             {id: 13, category: 'marketing', title: '오프라인 공간의 브랜딩', content: '성수동 팝업스토어 사례로 본 경험 설계의 중요성.', date: '2026-02-25'},
             {id: 12, category: 'marketing', title: '숏폼 콘텐츠 활용 가이드', content: '짧은 영상으로 타겟의 시선을 사로잡는 마케팅 문법.', date: '2026-02-20'},
             {id: 11, category: 'marketing', title: '지속 가능한 브랜드 철학', content: 'MZ세대가 열광하는 가치 소비와 기업의 진정성.', date: '2026-02-15'},
-
-            // Art & Culture (5개)
             {id: 10, category: 'art', title: '모네: 빛의 미학', content: '인상주의 거장이 남긴 색채의 조화를 현대 디자인 관점에서 해석합니다.', date: '2026-03-04'},
             {id: 9, category: 'art', title: '미니멀리즘과 현대 예술', content: '단순함 속에 숨겨진 강렬한 메시지를 탐구합니다.', date: '2026-02-28'},
             {id: 8, category: 'art', title: '바우하우스의 유산', content: '실용성과 예술성이 결합된 디자인 혁명의 시작점.', date: '2026-02-22'},
             {id: 7, category: 'art', title: '도심 속 숨겨진 갤러리', content: '나만 알고 싶은 서울의 작은 예술 공간들을 소개합니다.', date: '2026-02-10'},
             {id: 6, category: 'art', title: '고전 음악의 현대적 재해석', content: '클래식의 가치를 새롭게 변주하는 아티스트 리뷰.', date: '2026-02-05'},
-
-            // Travel (5개)
             {id: 5, category: 'travel', title: '베를린의 창의적인 골목', content: '역사와 예술이 공존하는 베를린의 독특한 분위기.', date: '2026-03-02'},
             {id: 4, category: 'travel', title: '교토의 정적인 아름다움', content: '오래된 정원에서 발견한 마음의 평온과 사색의 시간.', date: '2026-02-27'},
             {id: 3, category: 'travel', title: '포르투갈 아줄레주 투어', content: '파란 타일 벽화가 아름다운 리스본의 골목길 여행기.', date: '2026-02-18'},
@@ -265,16 +273,12 @@
         function openSubSite(cat) {
             const subView = document.getElementById('sub-site-view');
             const homeView = document.getElementById('home-view');
-            
             homeView.style.display = 'none';
             subView.style.display = 'block';
             window.scrollTo(0,0);
-
             const titles = { marketing: 'Marketing Archive', art: 'Art & Culture Archive', travel: 'Travel Journal' };
             document.getElementById('sub-title').innerText = titles[cat];
-            
             const filtered = posts.filter(p => p.category === cat).sort((a,b) => b.id - a.id);
-            // 여기서 전체 글(5개)이 렌더링됩니다.
             document.getElementById('sub-post-grid').innerHTML = filtered.map(post => createPostCard(post)).join('');
         }
 
